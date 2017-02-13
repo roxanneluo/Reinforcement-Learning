@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-#
+# 
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -92,9 +92,9 @@ class QLearningAgent(ReinforcementAgent):
             qv = self.getQValue(state, action) 
             if qv >= best_q_value:
                 if qv > best_q_value:
-                    best_action_list = []
                     best_q_value = qv
-                best_action_list.append(action)
+                    best_action_list = []
+            best_action_list.append(action)
         return random.choice(best_action_list)
 
     def getAction(self, state):
@@ -111,6 +111,7 @@ class QLearningAgent(ReinforcementAgent):
         # Pick Action
         legalActions = self.getLegalActions(state)
         action = None
+        util.raiseNotDefined()
         "*** YOUR CODE HERE ***"
         if len(legalActions) == 0:
             return action
@@ -195,26 +196,15 @@ class ApproximateQAgent(PacmanQAgent):
           Should return Q(state,action) = w * featureVector
           where * is the dotProduct operator
         """
-        weights = self.getWeights()
-        feats = self.featExtractor(state,action)
-        val = 0
-        for key in feats.sortedKeys():
-            val += feats[key]*weights[key]
-
-        return val
-
+        "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
 
     def update(self, state, action, nextState, reward):
         """
            Should update your weights based on transition
         """
-        diff = reward + self.gamma*computeValueFromQValues(nextState) - self.getQValue(state,action)
-        feats = self.featExtractor(state,action)
-        for key in feats.sortedKeys():
-            self.weights[key] += diff*feats[key]
-
-        #util.raiseNotDefined()
+        "*** YOUR CODE HERE ***"
+        util.raiseNotDefined()
 
     def final(self, state):
         "Called at the end of each game."
@@ -224,5 +214,5 @@ class ApproximateQAgent(PacmanQAgent):
         # did we finish training?
         if self.episodesSoFar == self.numTraining:
             # you might want to print your weights here for debugging
-            print self.getWeights
+            "*** YOUR CODE HERE ***"
             pass
