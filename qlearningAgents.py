@@ -54,7 +54,7 @@ class QLearningAgent(ReinforcementAgent):
         "*** YOUR CODE HERE ***"
         key = (state, action)
         if key in self.q_values:
-            return self.q_values[key] 
+            return self.q_values[key]
         return 0.0
 
 
@@ -73,7 +73,7 @@ class QLearningAgent(ReinforcementAgent):
         best_q_value = -float("inf")
         for action in action_list:
             best_q_value = max(best_q_value,
-                    self.getQValue(state, action)) 
+                    self.getQValue(state, action))
         return best_q_value
 
     def computeActionFromQValues(self, state):
@@ -86,10 +86,10 @@ class QLearningAgent(ReinforcementAgent):
         action_list = self.getLegalActions(state)
         if len(action_list) == 0:
             return None
-        
+
         best_q_value, best_action_list = -float("inf"), []
         for action in action_list:
-            qv = self.getQValue(state, action) 
+            qv = self.getQValue(state, action)
             if qv >= best_q_value:
                 if qv > best_q_value:
                     best_action_list = []
@@ -196,23 +196,23 @@ class ApproximateQAgent(PacmanQAgent):
           where * is the dotProduct operator
         """
         weights = self.getWeights()
-        feats = self.featExtractor(state,action)
+        feats = self.featExtractor.getFeatures(state,action)
         val = 0
         for key in feats.sortedKeys():
             val += feats[key]*weights[key]
 
         return val
 
-        util.raiseNotDefined()
+        #util.raiseNotDefined()
 
     def update(self, state, action, nextState, reward):
         """
            Should update your weights based on transition
         """
-        diff = reward + self.gamma*computeValueFromQValues(nextState) - self.getQValue(state,action)
-        feats = self.featExtractor(state,action)
+        diff = reward + self.discount*self.computeValueFromQValues(nextState) - self.getQValue(state,action)
+        feats = self.featExtractor.getFeatures(state,action)
         for key in feats.sortedKeys():
-            self.weights[key] += diff*feats[key]
+            self.weights[key] += self.alpha*diff*feats[key]
 
         #util.raiseNotDefined()
 
